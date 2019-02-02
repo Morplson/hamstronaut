@@ -1,16 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CageClick : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public GameObject someParticle;
+    private Vector3 target;
+    public int garbageTime = 50;
+
+    void Start()
+    {
+        target = transform.position;
+    }
+
+    void OnMouseDown()
+    {
+        target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        target.z = transform.position.z;
+
+        someParticle.transform.position = target;
+
+        Destroy(Instantiate(someParticle), garbageTime * Time.deltaTime);
+
+        MoneyRun.AddMoney(1);
+
+    }
+
+
 }
